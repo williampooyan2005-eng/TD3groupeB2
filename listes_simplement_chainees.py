@@ -51,6 +51,8 @@ class ListeChainee:
             if cell is not None:
                 print(cell.valeur, end=" -> ")
                 afficher_aux(cell.suivant)
+            else:
+                print(None)
 
         if self.tete is None: 
             print("Liste vide !")
@@ -82,17 +84,65 @@ class ListeChainee:
 
 
     def inserer_queue(self, val):
-        pass
+        nouvelle = Cellule(val)
+
+        if self.tete is None:
+            self.tete = nouvelle
+            return
+
+        courant = self.tete
+
+        while courant.suivant is not None:
+            courant = courant.suivant
+
+        courant.suivant = nouvelle
 
     def inserer_queue_recursif(self, val):
-        pass
+        def inserer_rec(noeud):
+            # Cas de base : fin de la liste
+            if noeud is None:
+                return Cellule(val)
+
+            # Appel récursif
+            noeud.suivant = inserer_rec(noeud.suivant)
+            return noeud
+
+        self.tete = inserer_rec(self.tete)
 
 
-    def supprimer_queue(self):      
-        pass
+    def supprimer_queue(self):
+        # Cas 1 : liste vide
+        if self.tete is None:
+            return
+
+        # Cas 2 : un seul élément
+        if self.tete.suivant is None:
+            self.tete = None
+            return
+
+        # Cas 3 : plusieurs éléments
+        courant = self.tete
+
+        while courant.suivant.suivant is not None:
+            courant = courant.suivant
+
+        courant.suivant = None
     
     def supprimer_queue_recursif(self):
-        pass
+        def supprimer(noeud):
+            # Cas 1 : liste vide
+            if noeud is None:
+                return None
+
+            # Cas 2 : dernier élément
+            if noeud.suivant is None:
+                return None
+
+            # Cas récursif
+            noeud.suivant = supprimer(noeud.suivant)
+            return noeud
+
+        self.tete = supprimer(self.tete)
 
 
 
@@ -120,7 +170,7 @@ def tests():
     # print(L1.longueur())
     # print(L2.longueur())
 
-    print(L.longueur_recursif())
+    # print(L.longueur_recursif())
     # print(L1.longueur_recursif())
     # print(L2.longueur_recursif())
 
@@ -134,7 +184,7 @@ def tests():
     # L.inserer_tete(3); L.afficher()
     
     # # BONUS
-    # L.supprimer_queue(); L.afficher()
+    L.supprimer_queue(); L.afficher()
     # L.supprimer_queue(); L.afficher()
     # L.supprimer_queue(); L.afficher()
     # L.supprimer_queue(); L.afficher()
