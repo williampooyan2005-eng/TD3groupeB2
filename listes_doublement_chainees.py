@@ -1,17 +1,22 @@
+
 #! /usr/bin/env python3
 
 """Listes doublement chaînées"""
 
+
 class CelluleDoublementChainee:
 
     def __init__(self, val, suiv=None):
-        self.valeur = val   
+        self.valeur = val
         self.suivant = suiv
         self.precedent = None
+
         if suiv is not None:
             suiv.precedent = self
 
+
 class ListeDoublementChainee:
+
     def __init__(self):
         self.tete = None
         self.queue = None
@@ -25,62 +30,115 @@ class ListeDoublementChainee:
     def cellule_queue(self):
         return self.queue
 
-    # Ajouter en début sans oublier le double chainage et le pointeur de queue
+    # Ajouter en début
     def inserer_tete(self, val):
-        pass
+        nouvelle = CelluleDoublementChainee(val, self.tete)
 
-    def supprimer_tete(self):      
-        pass
+        if self.tete is None:
+            self.queue = nouvelle
 
+        self.tete = nouvelle
+
+    # Supprimer en début
+    def supprimer_tete(self):
+        if self.tete is None:
+            return
+
+        self.tete = self.tete.suivant
+
+        if self.tete is None:
+            self.queue = None
+        else:
+            self.tete.precedent = None
+
+    # Ajouter en fin
     def inserer_queue(self, val):
-        pass
- 
-    def supprimer_queue(self):      
-        pass
-    
-     # Nombre de cellules en version itérative
+        nouvelle = CelluleDoublementChainee(val)
+
+        if self.queue is None:
+            self.tete = nouvelle
+            self.queue = nouvelle
+            return
+
+        nouvelle.precedent = self.queue
+        self.queue.suivant = nouvelle
+        self.queue = nouvelle
+
+    # Supprimer en fin
+    def supprimer_queue(self):
+        if self.queue is None:
+            return
+
+        self.queue = self.queue.precedent
+
+        if self.queue is None:
+            self.tete = None
+        else:
+            self.queue.suivant = None
+
+    # Nombre de cellules en version itérative
     def longueur(self):
-        return 0
+        l = 0
+        courant = self.tete
+
+        while courant is not None:
+            l += 1
+            courant = courant.suivant
+
+        return l
 
     # Nombre de cellules en version récursive
     def longueur_recursif(self):
-        return 0 
-        
+
+        def longueur_aux(cell):
+            if cell is None:
+                return 0
+
+            return 1 + longueur_aux(cell.suivant)
+
+        return longueur_aux(self.tete)
+
+    # Affichage itératif
     def afficher(self):
-        if self.tete is not None: 
+        if self.tete is not None:
             print("Valeur en tete : " + str(self.tete.valeur))
-        else :
+        else:
             print("Tete is None")
 
-        if self.queue is not None: 
+        if self.queue is not None:
             print("Valeur en queue : " + str(self.queue.valeur))
-        else :
-            print("Queue is None") 
+        else:
+            print("Queue is None")
 
-        if self.tete is None: 
+        if self.tete is None:
             print("Liste vide !")
 
         courant = self.tete
+
         while courant is not None:
             print(courant.valeur, end=" -> ")
             courant = courant.suivant
+
         print("None")
 
+    # Affichage récursif
     def afficher_recursif(self):
-        def afficher_aux(cell) : 
-            # A compléter : fonction locale
-            # ordre de la récurrence ?
-            # cas de base ? 
-            # cas général ?
-            pass
 
-        if self.tete is None: 
+        def afficher_aux(cell):
+            if cell is None:
+                print("None")
+                return
+
+            print(cell.valeur, end=" -> ")
+            afficher_aux(cell.suivant)
+
+        if self.tete is None:
             print("Liste vide !")
         else:
             afficher_aux(self.tete)
 
+
 def tests():
-    """"""
     L = ListeDoublementChainee()
     L.inserer_tete(10)
     L.inserer_tete(20)
@@ -88,7 +146,7 @@ def tests():
 
     L1 = ListeDoublementChainee()
     L1.inserer_tete(1)
-    
+
     L2 = ListeDoublementChainee()
 
     L.afficher()
@@ -115,7 +173,7 @@ def tests():
     L.inserer_tete(1); L.afficher()
     L.inserer_tete(2); L.afficher()
     L.inserer_tete(3); L.afficher()
-    
+
     # BONUS
     L.supprimer_queue(); L.afficher()
     L.supprimer_queue(); L.afficher()
@@ -125,6 +183,7 @@ def tests():
     L.inserer_queue(1); L.afficher()
     L.inserer_queue(2); L.afficher()
     L.inserer_queue(3); L.afficher()
+
 
 if __name__ == "__main__":
     tests()

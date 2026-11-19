@@ -1,39 +1,45 @@
+
 #! /usr/bin/env python3
 
-"""Implémentation des piles à l'aide de listes python """
+"""Implémentation des piles à l'aide de listes python"""
 
 
 class Pile:
-    
-    def __init__(self): self.data = []
-    
-    def est_vide(self):
-        pass
-    
-    def sommet(self):
-        pass
 
-    def empiler(self, x): 
-        pass
-    
+    def __init__(self):
+        self.data = []
+
+    def est_vide(self):
+        return len(self.data) == 0
+
+    def sommet(self):
+        if self.est_vide():
+            return None
+        return self.data[-1]
+
+    def empiler(self, x):
+        self.data.append(x)
+
     def depiler(self):
-        pass
-    
-    def longueur(self): 
-        pass
-    
+        if self.est_vide():
+            return None
+        return self.data.pop()
+
+    def longueur(self):
+        return len(self.data)
+
     def afficher(self):
-        pass
+        print(self.data[::-1])
+
 
 if __name__ == "__main__":
     p1 = Pile()
     p1.empiler(1)
     p1.empiler(2)
     p1.empiler(3)
-    p1. afficher()
-    
-    v = p1.depiler(); print("Extrait : " + str(v))
-    v = p1.depiler(); print("Extrait : " + str(v))
-    v = p1.depiler(); print("Extrait : " + str(v))
-    p1. afficher()
+    p1.afficher()
 
+    v = p1.depiler(); print("Extrait : " + str(v))
+    v = p1.depiler(); print("Extrait : " + str(v))
+    v = p1.depiler(); print("Extrait : " + str(v))
+    p1.afficher()
