@@ -48,11 +48,9 @@ class ListeChainee:
 
     def afficher_recursif(self):
         def afficher_aux(cell) : 
-            # A compléter : fonction locale
-            # ordre de la récurrence ?
-            # cas de base ? 
-            # cas général ?
-            pass
+            if cell is not None:
+                print(cell.valeur, end=" -> ")
+                afficher_aux(cell.suivant)
 
         if self.tete is None: 
             print("Liste vide !")
@@ -61,22 +59,26 @@ class ListeChainee:
 
     # Nombre de cellules en version itérative
     def longueur(self):
-        return 0
+        l = 0
+        courant = self.tete
+        while courant is not None:
+            courant = courant.suivant
+            l += 1
+        return l
 
     # Nombre de cellules en version récursive
     # utilisation d'une fonction locale
     def longueur_recursif(self):
-        def longueur_rec(cell): 
-            # A compléter : fonction locale
-            # ordre de la récurrence ?
-            # cas de base ? 
-            # cas général ?
-            return 0 
+        def longueur_rec(cell, l): 
+            if cell.suivant is not None:
+                return longueur_rec(cell.suivant, l + 1)
+            else:
+                return l
                 
         if self.tete is None: 
             return 0
         else :
-            return longueur_rec(self.tete)   
+            return longueur_rec(self.tete, 1)   
 
 
     def inserer_queue(self, val):
@@ -101,54 +103,54 @@ def tests():
     L.inserer_tete(20)
     L.inserer_tete(30)
 
-    L1 = ListeChainee()
-    L1.inserer_tete(1)
+    # L1 = ListeChainee()
+    # L1.inserer_tete(1)
     
-    L2 = ListeChainee()
+    # L2 = ListeChainee()
 
-    L.afficher()
-    L1.afficher()
-    L2.afficher()
+    # L.afficher()
+    # L1.afficher()
+    # L2.afficher()
 
-    L.afficher_recursif()
-    L1.afficher_recursif()
-    L2.afficher_recursif()
+    # L.afficher_recursif()
+    # L1.afficher_recursif()
+    # L2.afficher_recursif()
 
-    print(L.longueur())
-    print(L1.longueur())
-    print(L2.longueur())
+    # print(L.longueur())
+    # print(L1.longueur())
+    # print(L2.longueur())
 
     print(L.longueur_recursif())
-    print(L1.longueur_recursif())
-    print(L2.longueur_recursif())
+    # print(L1.longueur_recursif())
+    # print(L2.longueur_recursif())
 
-    L.supprimer_tete(); L.afficher()
-    L.supprimer_tete(); L.afficher()
-    L.supprimer_tete(); L.afficher()
-    L.supprimer_tete(); L.afficher()
+    # L.supprimer_tete(); L.afficher()
+    # L.supprimer_tete(); L.afficher()
+    # L.supprimer_tete(); L.afficher()
+    # L.supprimer_tete(); L.afficher()
 
-    L.inserer_tete(1); L.afficher()
-    L.inserer_tete(2); L.afficher()
-    L.inserer_tete(3); L.afficher()
+    # L.inserer_tete(1); L.afficher()
+    # L.inserer_tete(2); L.afficher()
+    # L.inserer_tete(3); L.afficher()
     
-    # BONUS
-    L.supprimer_queue(); L.afficher()
-    L.supprimer_queue(); L.afficher()
-    L.supprimer_queue(); L.afficher()
-    L.supprimer_queue(); L.afficher()
+    # # BONUS
+    # L.supprimer_queue(); L.afficher()
+    # L.supprimer_queue(); L.afficher()
+    # L.supprimer_queue(); L.afficher()
+    # L.supprimer_queue(); L.afficher()
 
-    L.inserer_queue(1); L.afficher()
-    L.inserer_queue(2); L.afficher()
-    L.inserer_queue(3); L.afficher()
+    # L.inserer_queue(1); L.afficher()
+    # L.inserer_queue(2); L.afficher()
+    # L.inserer_queue(3); L.afficher()
 
-    L.supprimer_queue_recursif(); L.afficher()
-    L.supprimer_queue_recursif(); L.afficher()
-    L.supprimer_queue_recursif(); L.afficher()
-    L.supprimer_queue_recursif(); L.afficher()
+    # L.supprimer_queue_recursif(); L.afficher()
+    # L.supprimer_queue_recursif(); L.afficher()
+    # L.supprimer_queue_recursif(); L.afficher()
+    # L.supprimer_queue_recursif(); L.afficher()
 
-    L.inserer_queue_recursif(1); L.afficher()
-    L.inserer_queue_recursif(2); L.afficher()
-    L.inserer_queue_recursif(3); L.afficher()
+    # L.inserer_queue_recursif(1); L.afficher()
+    # L.inserer_queue_recursif(2); L.afficher()
+    # L.inserer_queue_recursif(3); L.afficher()
 
 
 if __name__ == "__main__":
